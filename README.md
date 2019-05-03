@@ -2,7 +2,6 @@
 Personal Repo for Network Operations and Automation
 
 ## Cisco
-***
 ### ASA
 ### IOS XE / IOS XR
 ### Meraki
