@@ -1,19 +1,18 @@
 # netops
 Personal Repo for Network Operations and Automation
 
-### Netbox
+## Cisco
 ***
+### ASA
+### IOS XE / IOS XR
+### Nexus
+### UC
+### Wireless
 
-### LibreNMS
+### Network Applications
 ***
-
-### FortiOS
-***
-
-### Private Cloud
-
-### UCS / Hyperflex
-***
+[Netbox Documentation](https://netbox.readthedocs.io/en/stable/)
+[LibreNMS Documentation](https://docs.librenms.org/)
 
 ### Public Cloud
 ***
