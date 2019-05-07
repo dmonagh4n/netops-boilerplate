@@ -8,7 +8,7 @@
 # access to the server via any other hostnames. The first FQDN in the list will be treated as the preferred name.
 #
 # Example: ALLOWED_HOSTS = ['netbox.example.com', 'netbox.internal.local']
-ALLOWED_HOSTS = ['netbox.arnoldclark.com']
+ALLOWED_HOSTS = ['netbox.domain.com']
 
 # PostgreSQL database configuration.
 DATABASE = {
@@ -23,7 +23,7 @@ DATABASE = {
 # For optimal security, SECRET_KEY should be at least 50 characters in length and contain a mix of letters, numbers, and
 # symbols. NetBox will not run without this defined. For more information, see
 # https://docs.djangoproject.com/en/dev/ref/settings/#std:setting-SECRET_KEY
-SECRET_KEY = '3o9cn24lMXRmD4qSedhV'
+SECRET_KEY = 'x123'
 
 
 #########################
