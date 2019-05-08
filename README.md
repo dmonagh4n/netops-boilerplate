@@ -20,5 +20,8 @@ Personal Repo for Network Operations and Automation
 ### Public Cloud
 ***
 #### Azure
+[ExpressRoute Documentation](https://docs.microsoft.com/en-gb/azure/expressroute/)
 #### AWS
+[DirectConnect Documentation](https://docs.aws.amazon.com/aws-technical-content/latest/aws-vpc-connectivity-options/aws-direct-connect-network-to-amazon.html)
 #### GCP
+[Dedicated Interconnect](https://cloud.google.com/interconnect/docs/concepts/dedicated-overview)
