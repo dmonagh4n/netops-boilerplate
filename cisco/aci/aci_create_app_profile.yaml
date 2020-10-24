@@ -8,4 +8,4 @@
        validate_certs: false
        tenant: "{{ tenant }}"
        ap: "{{ ap }}"
-       descr: "App Profile Created Using Ansible"
+       descr: "DM_AP_01 created"

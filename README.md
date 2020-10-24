@@ -2,7 +2,6 @@
 Personal repo for network operations and automation across Cisco and Palo Alto Portfolios.
 
 # 0. Cisco DC
-***
 - [x] ACI Policy Creation: Ansible Playbook
 - [ ] ACI Policy Creation: Cobra SDK 
 - [ ] ACI Policy Creation: REST API (Python)
@@ -26,3 +25,9 @@ Personal repo for network operations and automation across Cisco and Palo Alto P
 - [ ] Intersight API: Manage Firmware Updates
 - [ ] Intersight API: Manage Server Policies
 - [ ] Intersight API: Manage Service Profiles
+
+# 1. Palo Alto Strata
+- [ ] Strata NGFW Policy: Add Rule to Policy
+- [ ] Strata Panorama Policy: Add Rule to Policy
+- [ ] Strata NGFW NAT: Add NAT 
+- [ ] Strata Panorama NAT: Add NAT

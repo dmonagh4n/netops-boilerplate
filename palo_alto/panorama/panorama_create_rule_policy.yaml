@@ -1,0 +1,17 @@
+- name: Add test pre-rule to Panorama
+  panos_security_rule:
+    provider: '{{ provider }}'
+    rule_name: 'Ansible test 1'
+    description: 'An Ansible test pre-rule'
+    source_zone: ['internal']
+    destination_zone: ['external']
+    source_ip: ['1.2.3.4']
+    source_user: ['any']
+    destination_ip: ['any']
+    category: ['any']
+    application: ['any']
+    service: ['service-http']
+    hip_profiles: ['any']
+    action: 'allow'
+    device_group: 'DeviceGroupA'
+    commit: False
