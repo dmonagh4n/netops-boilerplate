@@ -1,0 +1,11 @@
+---
+   - name: ENSURE APPLICATION EXISTS
+     aci_ap:
+       host: "{{ inventory_hostname }}"
+       username: "{{ username }}"
+       password: "{{ password }}"
+       state: "present"
+       validate_certs: false
+       tenant: "{{ tenant }}"
+       ap: "{{ ap }}"
+       descr: "App Profile Created Using Ansible"

@@ -1,10 +1,28 @@
-# netops
-Personal repo for network operations and automation
+# NetOps
+Personal repo for network operations and automation across Cisco and Palo Alto Portfolios.
 
-## Cisco
-This will focus on operational and automation tools commonly used to manage across the Cisco Data Centre, Enterprise, Cloud and Security Portfolio.   
-
-## Palo Alto
-This will focus on building operational and automation tools across the Palo Alto Cybersecurity portfolio  
-
-[Palo Alto Repository](https://github.com/PaloAltoNetworks)
+# 0. Cisco DC
+***
+- [x] ACI Policy Creation: Ansible Playbook
+- [ ] ACI Policy Creation: Cobra SDK 
+- [ ] ACI Policy Creation: REST API (Python)
+- [ ] ACI K8s Integration with CNI
+***
+- [ ] NXOS Off-Box Programmability: Ansible
+- [ ] NXOS Off-Box Programmability: NETCONF (native and openconfig)
+- [ ] NXOS Off-Box Programmability: NX-API
+- [ ] NXOS On-Box Programmability: Bash
+- [ ] NXOS On-Box Programmability: LXC and Docker
+- [ ] NXOS On-Box Programmability: NXOS Guest Shell
+- [ ] NXOS On-Box Programmability: EEM
+- [ ] NXOS On-Box Programmability: Python
+- [ ] NXOS Consume MDT: Python
+***
+- [ ] UCS Configuration: Ansible
+- [ ] UCS Configuration: PowerTool
+- [ ] UCS Configuration: Python SDK
+- [ ] UCS Director: REST API Browser
+*** 
+- [ ] Intersight API: Manage Firmware Updates
+- [ ] Intersight API: Manage Server Policies
+- [ ] Intersight API: Manage Service Profiles
