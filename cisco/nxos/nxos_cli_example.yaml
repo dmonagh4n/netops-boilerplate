@@ -1,0 +1,20 @@
+---
+ansible_connection: ansible.netcommon.network_cli
+ansible_network_os: cisco.nxos.nxos
+ansible_user: myuser
+ansible_password: !vault...
+ansible_become: yes
+ansible_become_method: enable
+ansible_become_password: !vault...
+ansible_ssh_common_args: '-o ProxyCommand="ssh -W %h:%p -q bastion01"'
+
+
+- hosts: "{{ group | default('NXOS_SW') }}"
+ connection: local
+  gather_facts: false
+  tasks:
+   - name: Backup current switch config (nxos)
+      cisco.nxos.nxos_config:
+        backup: yes
+      register: backup_nxos_location
+      when: ansible_network_os == 'cisco.nxos.nxos'

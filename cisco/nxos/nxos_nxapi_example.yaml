@@ -1,0 +1,15 @@
+---
+ansible_connection: ansible.netcommon.httpapi
+ansible_network_os: cisco.nxos.nxos
+ansible_user: myuser
+ansible_password: !vault...
+proxy_env:
+  http_proxy: http://proxy.example.com:8080
+
+tasks:
+- name: Backup current switch config (nxos)
+    cisco.nxos.nxos_config:
+      backup: yes
+    register: backup_nxos_location
+    environment: "{{ proxy_env }}"
+    when: ansible_network_os == 'cisco.nxos.nxos'
