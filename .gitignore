@@ -15,3 +15,9 @@
 _config.yml
 
 # End of https://www.gitignore.io/api/visualstudiocode
+
+# Python Virtual Environments
+venv/
+env/
+.venv
+.env
