@@ -1,6 +1,6 @@
 ---
 - name: Create a Tenant, App profile, VRF, Bridge Domain, and 10 EPGs
-  hosts: localhost
+  hosts: apic
   gather_facts: false
   vars:
     ansible_connection: local
