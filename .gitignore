@@ -21,3 +21,7 @@ venv/
 env/
 .venv
 .env
+
+# Ansible credentials
+credentials.yaml 
+credentials.yml

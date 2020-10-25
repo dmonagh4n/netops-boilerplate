@@ -1,11 +1,91 @@
 ---
-   - name: ENSURE APPLICATION EXISTS
-     aci_ap:
-       host: "{{ inventory_hostname }}"
-       username: "{{ username }}"
-       password: "{{ password }}"
-       state: "present"
-       validate_certs: false
-       tenant: "{{ tenant }}"
-       ap: "{{ ap }}"
-       descr: "DM_AP_01 created"
+- name: Create a Tenant, App profile, VRF, Bridge Domain, and 10 EPGs
+  hosts: localhost
+  gather_facts: false
+  vars:
+    ansible_connection: local
+    aci_tenant: DM-ACI-Ansible-1001
+    aci_ap_name: DM-ACI-Ansible-1001_AP
+    aci_bd: DM-ACI-Ansible-1001_BD
+    aci_vrf: DM-ACI-Ansible-1001_VRF
+    aci_epgs:
+      - _epg: Web
+        _desc: web_fe
+      - _epg: DB
+        _desc: database
+  vars_prompt:
+    - name: "aci_host"
+      prompt: "Enter APIC IP"
+      private: no
+    - name: "aci_username"
+      prompt: "Enter your APIC Username"
+      default: 'admin'
+      unsafe: yes
+    - name: "aci_password"
+      prompt: "Enter your APIC Password"
+      private: yes
+      unsafe: yes
+
+  tasks:
+  - name: Create a tenant
+    aci_tenant:
+      host: "{{ aci_host }}"
+      username: "{{ aci_username }}"
+      password: "{{ aci_password }}"
+      tenant: "{{ aci_tenant }}"
+      description: DM-ACI-Ansible-1001 - Tenant
+      state: present
+      validate_certs: false
+
+  - name: Add a new AP
+    aci_ap:
+      host: "{{ aci_host }}"
+      username: "{{ aci_username }}"
+      password: "{{ aci_password }}"
+      tenant: "{{ aci_tenant }}"
+      ap: "{{ aci_ap_name }}"
+      description: DM-ACI-Ansible-1001 - AP
+      state: present
+      validate_certs: false
+
+  - name: Add a new VRF to a tenant
+    aci_vrf:
+      host: "{{ aci_host }}"
+      username: "{{ aci_username }}"
+      password: "{{ aci_password }}"
+      vrf: "{{ aci_vrf }}"
+      tenant: "{{ aci_tenant }}"
+      descr: DM-ACI-Ansible-1001 - VRF
+      policy_control_preference: enforced
+      policy_control_direction: ingress
+      state: present
+      validate_certs: false
+
+  - name: Add Bridge Domain
+    aci_bd:
+      host: "{{ aci_host }}"
+      username: "{{ aci_username }}"
+      password: "{{ aci_password }}"
+      tenant: "{{ aci_tenant }}"
+      bd: "{{ aci_bd }}"
+      vrf: "{{ aci_vrf }}"
+      state: present
+      validate_certs: false
+
+  - name: Add new EPGs
+    aci_epg:
+      host: "{{ aci_host }}"
+      username: "{{ aci_username }}"
+      password: "{{ aci_password }}"
+      tenant: "{{ aci_tenant }}"
+      ap: "{{ aci_ap_name }}"
+      epg: "{{ all_epgs._epg }}"
+      description: "{{ all_epgs._desc}}"
+      bd: "{{ aci_bd }}"
+      priority: unspecified
+      intra_epg_isolation: unenforced
+      state: present
+      validate_certs: false
+    loop: "{{ aci_epgs }}"
+    loop_control:
+       loop_var: all_epgs
