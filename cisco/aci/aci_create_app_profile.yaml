@@ -13,25 +13,13 @@
         _desc: web_fe
       - _epg: DB
         _desc: database
-  vars_prompt:
-    - name: "aci_host"
-      prompt: "Enter APIC IP"
-      private: no
-    - name: "aci_username"
-      prompt: "Enter your APIC Username"
-      default: 'admin'
-      unsafe: yes
-    - name: "aci_password"
-      prompt: "Enter your APIC Password"
-      private: yes
-      unsafe: yes
 
   tasks:
   - name: Create a tenant
     aci_tenant:
-      host: "{{ aci_host }}"
-      username: "{{ aci_username }}"
-      password: "{{ aci_password }}"
+      host: "{{ inventory_hostname }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
       tenant: "{{ aci_tenant }}"
       description: DM-ACI-Ansible-1001 - Tenant
       state: present
@@ -39,9 +27,9 @@
 
   - name: Add a new AP
     aci_ap:
-      host: "{{ aci_host }}"
-      username: "{{ aci_username }}"
-      password: "{{ aci_password }}"
+      host: "{{ inventory_hostname }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
       tenant: "{{ aci_tenant }}"
       ap: "{{ aci_ap_name }}"
       description: DM-ACI-Ansible-1001 - AP
@@ -50,9 +38,9 @@
 
   - name: Add a new VRF to a tenant
     aci_vrf:
-      host: "{{ aci_host }}"
-      username: "{{ aci_username }}"
-      password: "{{ aci_password }}"
+      host: "{{ inventory_hostname }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
       vrf: "{{ aci_vrf }}"
       tenant: "{{ aci_tenant }}"
       descr: DM-ACI-Ansible-1001 - VRF
@@ -63,9 +51,9 @@
 
   - name: Add Bridge Domain
     aci_bd:
-      host: "{{ aci_host }}"
-      username: "{{ aci_username }}"
-      password: "{{ aci_password }}"
+      host: "{{ inventory_hostname }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
       tenant: "{{ aci_tenant }}"
       bd: "{{ aci_bd }}"
       vrf: "{{ aci_vrf }}"
@@ -74,9 +62,9 @@
 
   - name: Add new EPGs
     aci_epg:
-      host: "{{ aci_host }}"
-      username: "{{ aci_username }}"
-      password: "{{ aci_password }}"
+      host: "{{ inventory_hostname }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
       tenant: "{{ aci_tenant }}"
       ap: "{{ aci_ap_name }}"
       epg: "{{ all_epgs._epg }}"
