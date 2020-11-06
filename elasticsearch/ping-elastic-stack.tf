@@ -59,9 +59,25 @@ data "vsphere_network" "kibana-972" {
   datacenter_id = data.vsphere_datacenter.dc.id
 }
 
-# ELASTIC TEMPLATE
+# BASE TEMPLATE
 data "vsphere_virtual_machine" "template" {
   name          = "ELASTIC_TEMPLATE"
+  datacenter_id = data.vsphere_datacenter.dc.id
+}
+
+# ELASTICSEARCH TEMPLATE
+data "vsphere_virtual_machine" "elasticsearch" {
+  name          = "PING_ELASTICSEARCH_TEMPLATE"
+  datacenter_id = data.vsphere_datacenter.dc.id
+}
+# LOGSTASH TEMPLATE
+data "vsphere_virtual_machine" "logstash" {
+  name          = "PING_LOGSTASH_TEMPLATE"
+  datacenter_id = data.vsphere_datacenter.dc.id
+}
+# KIBANA TEMPLATE
+data "vsphere_virtual_machine" "kibana" {
+  name          = "PING_KIBANA_TEMPLATE"
   datacenter_id = data.vsphere_datacenter.dc.id
 }
 
@@ -87,7 +103,7 @@ resource "vsphere_virtual_machine" "DUN-BS-EL-M-01" {
   }
 
   clone {
-    template_uuid = data.vsphere_virtual_machine.template.id
+    template_uuid = data.vsphere_virtual_machine.elasticsearch.id
 
     customize {
       linux_options {
@@ -98,7 +114,8 @@ resource "vsphere_virtual_machine" "DUN-BS-EL-M-01" {
         ipv4_address = "172.29.97.10"
         ipv4_netmask = 26
       }
-      ipv4_gateway = "172.29.97.62"
+      ipv4_gateway = "172.29.97.61"
+      dns_server_list = ["172.29.68.3", "172.30.68.3"]
     }
   }
   # cdrom {
@@ -128,7 +145,7 @@ resource "vsphere_virtual_machine" "DUN-BS-EL-D-01" {
   }
 
     clone {
-    template_uuid = data.vsphere_virtual_machine.template.id
+    template_uuid = data.vsphere_virtual_machine.elasticsearch.id
 
     customize {
       linux_options {
@@ -139,7 +156,8 @@ resource "vsphere_virtual_machine" "DUN-BS-EL-D-01" {
         ipv4_address = "172.29.97.11"
         ipv4_netmask = 26
       }
-      ipv4_gateway = "172.29.97.62"
+      ipv4_gateway = "172.29.97.61"
+      dns_server_list = ["172.29.68.3", "172.30.68.3"]
     }
   }
 }
@@ -165,7 +183,7 @@ resource "vsphere_virtual_machine" "DUN-BS-EL-D-02" {
   }
 
   clone {
-    template_uuid = data.vsphere_virtual_machine.template.id
+    template_uuid = data.vsphere_virtual_machine.elasticsearch.id
     customize {
       linux_options {
         host_name = "DUN-BS-EL-D-02"
@@ -175,7 +193,8 @@ resource "vsphere_virtual_machine" "DUN-BS-EL-D-02" {
         ipv4_address = "172.29.97.12"
         ipv4_netmask = 26
       }
-      ipv4_gateway = "172.29.97.62"
+      ipv4_gateway = "172.29.97.61"
+      dns_server_list = ["172.29.68.3", "172.30.68.3"]
     }
   }
 }
@@ -198,12 +217,12 @@ resource "vsphere_virtual_machine" "DUN-BS-LS-01" {
 
   disk {
     label = "disk0"
-    size  = 150
+    size  = 60
   }
 
   clone {
-    template_uuid = data.vsphere_virtual_machine.template.id
-
+    template_uuid = data.vsphere_virtual_machine.logstash.id
+    
     customize {
       linux_options {
         host_name = "DUN-BS-LS-01"
@@ -213,6 +232,7 @@ resource "vsphere_virtual_machine" "DUN-BS-LS-01" {
         ipv4_address = "172.29.97.66"
         ipv4_netmask = 26
       }
+      dns_server_list = ["172.29.68.3", "172.30.68.3"]
       ipv4_gateway = "172.29.97.125"
   }
 }
@@ -236,23 +256,23 @@ resource "vsphere_virtual_machine" "DUN-BS-KIB-01" {
 
   disk {
     label = "disk0"
-    size  = 150
+    size  = 60
   }
 
   clone {
-    template_uuid = data.vsphere_virtual_machine.template.id
-
+    template_uuid = data.vsphere_virtual_machine.kibana.id
+    
     customize {
       linux_options {
-        host_name = "DUN-BS-LS-01"
+        host_name = "DUN-BS-EL-KIB-01"
         domain = "ping-ns.com"
       }
       network_interface {
         ipv4_address = "172.29.97.130"
         ipv4_netmask = 26
       }
-      ipv4_gateway = "172.29.97.190"
+      ipv4_gateway = "172.29.97.189"
+      dns_server_list = ["172.29.68.3", "172.30.68.3"]
   }
  }
-}
-dmo
+} 
