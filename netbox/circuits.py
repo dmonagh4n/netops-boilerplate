@@ -16,7 +16,7 @@ class Circuits:
 	write = csv.writer(circuit_csv, quoting=csv.QUOTE_ALL)
 	
 	for rownum in range(sheet.nrows):
-		write.writerow(sheet.row_values(rownum))
+	    write.writerow(sheet.row_values(rownum))
 	
 	circuit_csv.close()
 
