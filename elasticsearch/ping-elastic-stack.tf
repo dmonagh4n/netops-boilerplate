@@ -1,15 +1,26 @@
 variable "vsphere_user" {
-   description = "The vsphere user for terraform"
-   type = string
+    description = "The vsphere user for terraform"
+    type = string
 }
 
 variable "vsphere_password" {
-   description = "The vsphere password for terraform"
-   type = string
+    description = "The vsphere password for terraform"
+    type = string
 }
 
 variable "vsphere_server" {
-   description = "The target vsphere environment"
+    description = "The target vsphere environment"
+    type = string
+} 
+
+variable "dns_servers" {
+    description = "The internal DNS severs"
+    type = list
+    default = []
+}
+
+variable "domain_name" {
+   description = "The domain name in use"
    type = string
 }
 
@@ -108,14 +119,14 @@ resource "vsphere_virtual_machine" "DUN-BS-EL-M-01" {
     customize {
       linux_options {
         host_name = "DUN-BS-EL-M-01"
-        domain = "ping-ns.com"
+        domain = var.domain_name
       }
       network_interface {
         ipv4_address = "172.29.97.10"
         ipv4_netmask = 26
       }
       ipv4_gateway = "172.29.97.61"
-      dns_server_list = ["172.29.68.3", "172.30.68.3"]
+      dns_server_list = var.dns_servers
     }
   }
   # cdrom {
@@ -150,14 +161,14 @@ resource "vsphere_virtual_machine" "DUN-BS-EL-D-01" {
     customize {
       linux_options {
         host_name = "DUN-BS-EL-D-01"
-        domain = "ping-ns.com"
+        domain = var.domain_name
       }
       network_interface {
         ipv4_address = "172.29.97.11"
         ipv4_netmask = 26
       }
       ipv4_gateway = "172.29.97.61"
-      dns_server_list = ["172.29.68.3", "172.30.68.3"]
+      dns_server_list = var.dns_servers
     }
   }
 }
@@ -187,14 +198,14 @@ resource "vsphere_virtual_machine" "DUN-BS-EL-D-02" {
     customize {
       linux_options {
         host_name = "DUN-BS-EL-D-02"
-        domain = "ping-ns.com"
+        domain = var.domain_name
       }
       network_interface {
         ipv4_address = "172.29.97.12"
         ipv4_netmask = 26
       }
       ipv4_gateway = "172.29.97.61"
-      dns_server_list = ["172.29.68.3", "172.30.68.3"]
+      dns_server_list = var.dns_servers
     }
   }
 }
@@ -226,14 +237,14 @@ resource "vsphere_virtual_machine" "DUN-BS-LS-01" {
     customize {
       linux_options {
         host_name = "DUN-BS-LS-01"
-        domain = "ping-ns.com"
+        domain = var.domain_name
       }
       network_interface {
         ipv4_address = "172.29.97.66"
         ipv4_netmask = 26
       }
-      dns_server_list = ["172.29.68.3", "172.30.68.3"]
       ipv4_gateway = "172.29.97.125"
+      dns_server_list = var.dns_servers
   }
 }
 }
@@ -265,14 +276,14 @@ resource "vsphere_virtual_machine" "DUN-BS-KIB-01" {
     customize {
       linux_options {
         host_name = "DUN-BS-EL-KIB-01"
-        domain = "ping-ns.com"
+        domain = var.domain_name
       }
       network_interface {
         ipv4_address = "172.29.97.130"
         ipv4_netmask = 26
       }
       ipv4_gateway = "172.29.97.189"
-      dns_server_list = ["172.29.68.3", "172.30.68.3"]
+      dns_server_list = var.dns_servers
   }
  }
 } 

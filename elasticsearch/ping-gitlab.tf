@@ -13,6 +13,17 @@ variable "vsphere_server" {
    type = string
 }
 
+variable "dns_servers" {
+   description = "The DNS Servers"
+   type = list
+   default = []
+}
+
+variable "domain_name" {
+   description = "The Domain name"
+   type = string
+}
+
 provider "vsphere" {
   user           = var.vsphere_user
   password       = var.vsphere_password
@@ -82,15 +93,15 @@ resource "vsphere_virtual_machine" "DUN-BS-CICD-01" {
     customize {
       linux_options {
         host_name = "DUN-BS-CICD-01"
-        domain = "ping-ns.com"
+        domain = var.domain_name
       }
       network_interface {
         ipv4_address = "172.29.98.1"
         ipv4_netmask = 26
       }
       ipv4_gateway = "172.29.98.13"
-      dns_server_list = ["172.29.68.3", "172.30.68.3"]
-    }
+      dns_server_list = var.dns_servers
+   }
   }
   # cdrom {
   #    datastore_id = data.vsphere_datastore.datastore01.id
