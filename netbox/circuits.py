@@ -1,4 +1,5 @@
 import csv
+import xlrd
 from collections import namedtuple
 
 ''' 
@@ -9,6 +10,15 @@ class Circuits:
 
     def convert_to_csv():
 	# Gather xlsx format circuit tracker and convert to csv - if already csv skip to import
+	workbook = xlrd.open_workbook('circuits.xlsx')
+	sheet = workbook.sheet_by_name('Sheet1')
+	circuit_csv = open('circuits.csv', 'w')
+	write = csv.writer(circuit_csv, quoting=csv.QUOTE_ALL)
+	
+	for rownum in range(sheet.nrows):
+		write.writerow(sheet.row_values(rownum))
+	
+	circuit_csv.close()
 
     def print_circuits(circuit_id):
 	# Display contents of circuit tracker rows, if required
