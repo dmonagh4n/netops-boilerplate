@@ -24,6 +24,21 @@ variable "domain_name" {
    type = string
 }
 
+variable "ipv4_elasticsearch_gw" {
+   description "The IPv4 Gateway for Elasticsearch"
+   type = string
+}
+
+variable "ipv4_logstash_gw" {
+   description "The IPv4 Gateway for Logstash"
+   type = string
+}
+
+variable "ipv4_kibana_gw" {
+   description "The IPv4 Gateway for Kibana"
+   type = string	
+}
+
 provider "vsphere" {
   user           = var.vsphere_user
   password       = var.vsphere_password
@@ -125,7 +140,7 @@ resource "vsphere_virtual_machine" "DUN-BS-EL-M-01" {
         ipv4_address = "172.29.97.10"
         ipv4_netmask = 26
       }
-      ipv4_gateway = "172.29.97.61"
+      ipv4_gateway = var.ipv4_elasticsearch_gw
       dns_server_list = var.dns_servers
     }
   }
@@ -167,7 +182,7 @@ resource "vsphere_virtual_machine" "DUN-BS-EL-D-01" {
         ipv4_address = "172.29.97.11"
         ipv4_netmask = 26
       }
-      ipv4_gateway = "172.29.97.61"
+      ipv4_gateway = var.ipv4_elasticsearch_gw
       dns_server_list = var.dns_servers
     }
   }
@@ -204,7 +219,7 @@ resource "vsphere_virtual_machine" "DUN-BS-EL-D-02" {
         ipv4_address = "172.29.97.12"
         ipv4_netmask = 26
       }
-      ipv4_gateway = "172.29.97.61"
+      ipv4_gateway = var.ipv4_elasticsearch_gw
       dns_server_list = var.dns_servers
     }
   }
@@ -243,7 +258,7 @@ resource "vsphere_virtual_machine" "DUN-BS-LS-01" {
         ipv4_address = "172.29.97.66"
         ipv4_netmask = 26
       }
-      ipv4_gateway = "172.29.97.125"
+      ipv4_gateway = var.ipv4_logstash_gw
       dns_server_list = var.dns_servers
   }
 }
@@ -282,7 +297,7 @@ resource "vsphere_virtual_machine" "DUN-BS-KIB-01" {
         ipv4_address = "172.29.97.130"
         ipv4_netmask = 26
       }
-      ipv4_gateway = "172.29.97.189"
+      ipv4_gateway = var.ipv4_kibana_gw
       dns_server_list = var.dns_servers
   }
  }
