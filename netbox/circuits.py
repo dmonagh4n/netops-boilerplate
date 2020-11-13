@@ -18,7 +18,12 @@ class Circuits:
 	for rownum in range(sheet.nrows):
 	    write.writerow(sheet.row_values(rownum))
 	
+    # ADD - return new csv file details to user/details to stdout?
+
 	circuit_csv.close()
+
+    def output_to_netbox():
+        # Take converted csv file, extract layout and update to netbox
 
     def print_circuits(circuit_id):
 	# Display contents of circuit tracker rows, if required
