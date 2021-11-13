@@ -1,3 +1,4 @@
+from _typeshed import Self
 import csv
 import xlrd
 from collections import namedtuple
@@ -9,22 +10,21 @@ Build out class to handle interpretation (and potential conversion to csv file) 
 class Circuits:
 
     def convert_to_csv():
-	# Gather xlsx format circuit tracker and convert to csv - if already csv skip to import
-	workbook = xlrd.open_workbook('circuits.xlsx')
-	sheet = workbook.sheet_by_name('Sheet1')
-	circuit_csv = open('circuits.csv', 'w')
-	write = csv.writer(circuit_csv, quoting=csv.QUOTE_ALL)
+	    # Gather xlsx format circuit tracker and convert to csv - if already csv skip to import
+	    workbook = xlrd.open_workbook('circuits.xlsx')
+	    sheet = workbook.sheet_by_name('Sheet1')
+	    circuit_csv = open('circuits.csv', 'w')
+	    write = csv.writer(circuit_csv, quoting=csv.QUOTE_ALL)
 	
-	for rownum in range(sheet.nrows):
-	    write.writerow(sheet.row_values(rownum))
-	
-    # ADD - return new csv file details to user/details to stdout?
-
-	circuit_csv.close()
+	    for rownum in range(sheet.nrows):
+	        write.writerow(sheet.row_values(rownum))
+        # ADD - return new csv file details to user/details to stdout?
+	    circuit_csv.close()
 
     def output_to_netbox():
         # Take converted csv file, extract layout and update to netbox
-
+        print(Self)
+        
     def print_circuits(circuit_id):
 	# Display contents of circuit tracker rows, if required
         circuits = []
