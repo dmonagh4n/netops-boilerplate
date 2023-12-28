@@ -1,42 +1,42 @@
 variable "vsphere_user" {
-    description = "The vsphere user for terraform"
-    type = string
+  description = "The vsphere user for terraform"
+  type        = string
 }
 
 variable "vsphere_password" {
-    description = "The vsphere password for terraform"
-    type = string
+  description = "The vsphere password for terraform"
+  type        = string
 }
 
 variable "vsphere_server" {
-    description = "The target vsphere environment"
-    type = string
-} 
+  description = "The target vsphere environment"
+  type        = string
+}
 
 variable "dns_servers" {
-    description = "The internal DNS severs"
-    type = list
-    default = []
+  description = "The internal DNS severs"
+  type        = list(any)
+  default     = []
 }
 
 variable "domain_name" {
-   description = "The domain name in use"
-   type = string
+  description = "The domain name in use"
+  type        = string
 }
 
 variable "ipv4_elasticsearch_gw" {
-   description "The IPv4 Gateway for Elasticsearch"
-   type = string
+  description = "The IPv4 Gateway for Elasticsearch"
+  type        = string
 }
 
 variable "ipv4_logstash_gw" {
-   description "The IPv4 Gateway for Logstash"
-   type = string
+  description = "The IPv4 Gateway for Logstash"
+  type        = string
 }
 
 variable "ipv4_kibana_gw" {
-   description "The IPv4 Gateway for Kibana"
-   type = string	
+  description = "The IPv4 Gateway for Kibana"
+  type        = string
 }
 
 provider "vsphere" {
@@ -109,10 +109,10 @@ data "vsphere_virtual_machine" "kibana" {
 
 # ELASTICSEARCH VMS
 resource "vsphere_virtual_machine" "DUN-BS-EL-M-01" {
-  name             = "DUN-BS-EL-M-01"
-  resource_pool_id = data.vsphere_resource_pool.pool.id
-  datastore_id     = data.vsphere_datastore.datastore02.id
-  wait_for_guest_ip_timeout = 0
+  name                       = "DUN-BS-EL-M-01"
+  resource_pool_id           = data.vsphere_resource_pool.pool.id
+  datastore_id               = data.vsphere_datastore.datastore02.id
+  wait_for_guest_ip_timeout  = 0
   wait_for_guest_net_timeout = 0
 
   num_cpus = 4
@@ -134,13 +134,13 @@ resource "vsphere_virtual_machine" "DUN-BS-EL-M-01" {
     customize {
       linux_options {
         host_name = "DUN-BS-EL-M-01"
-        domain = var.domain_name
+        domain    = var.domain_name
       }
       network_interface {
         ipv4_address = "172.29.97.10"
         ipv4_netmask = 26
       }
-      ipv4_gateway = var.ipv4_elasticsearch_gw
+      ipv4_gateway    = var.ipv4_elasticsearch_gw
       dns_server_list = var.dns_servers
     }
   }
@@ -151,10 +151,10 @@ resource "vsphere_virtual_machine" "DUN-BS-EL-M-01" {
 }
 
 resource "vsphere_virtual_machine" "DUN-BS-EL-D-01" {
-  name             = "DUN-BS-EL-D-01"
-  resource_pool_id = data.vsphere_resource_pool.pool.id
-  datastore_id     = data.vsphere_datastore.datastore02.id
-  wait_for_guest_ip_timeout = 0
+  name                       = "DUN-BS-EL-D-01"
+  resource_pool_id           = data.vsphere_resource_pool.pool.id
+  datastore_id               = data.vsphere_datastore.datastore02.id
+  wait_for_guest_ip_timeout  = 0
   wait_for_guest_net_timeout = 0
 
   num_cpus = 4
@@ -170,29 +170,29 @@ resource "vsphere_virtual_machine" "DUN-BS-EL-D-01" {
     size  = 150
   }
 
-    clone {
+  clone {
     template_uuid = data.vsphere_virtual_machine.elasticsearch.id
 
     customize {
       linux_options {
         host_name = "DUN-BS-EL-D-01"
-        domain = var.domain_name
+        domain    = var.domain_name
       }
       network_interface {
         ipv4_address = "172.29.97.11"
         ipv4_netmask = 26
       }
-      ipv4_gateway = var.ipv4_elasticsearch_gw
+      ipv4_gateway    = var.ipv4_elasticsearch_gw
       dns_server_list = var.dns_servers
     }
   }
 }
 
 resource "vsphere_virtual_machine" "DUN-BS-EL-D-02" {
-  name             = "DUN-BS-EL-D-02"
-  resource_pool_id = data.vsphere_resource_pool.pool.id
-  datastore_id     = data.vsphere_datastore.datastore02.id
-  wait_for_guest_ip_timeout = 0
+  name                       = "DUN-BS-EL-D-02"
+  resource_pool_id           = data.vsphere_resource_pool.pool.id
+  datastore_id               = data.vsphere_datastore.datastore02.id
+  wait_for_guest_ip_timeout  = 0
   wait_for_guest_net_timeout = 0
 
   num_cpus = 4
@@ -213,13 +213,13 @@ resource "vsphere_virtual_machine" "DUN-BS-EL-D-02" {
     customize {
       linux_options {
         host_name = "DUN-BS-EL-D-02"
-        domain = var.domain_name
+        domain    = var.domain_name
       }
       network_interface {
         ipv4_address = "172.29.97.12"
         ipv4_netmask = 26
       }
-      ipv4_gateway = var.ipv4_elasticsearch_gw
+      ipv4_gateway    = var.ipv4_elasticsearch_gw
       dns_server_list = var.dns_servers
     }
   }
@@ -227,10 +227,10 @@ resource "vsphere_virtual_machine" "DUN-BS-EL-D-02" {
 
 # LOGSTASH VMS
 resource "vsphere_virtual_machine" "DUN-BS-LS-01" {
-  name             = "DUN-BS-LS-01"
-  resource_pool_id = data.vsphere_resource_pool.pool.id
-  datastore_id     = data.vsphere_datastore.datastore02.id
-  wait_for_guest_ip_timeout = 0
+  name                       = "DUN-BS-LS-01"
+  resource_pool_id           = data.vsphere_resource_pool.pool.id
+  datastore_id               = data.vsphere_datastore.datastore02.id
+  wait_for_guest_ip_timeout  = 0
   wait_for_guest_net_timeout = 0
 
   num_cpus = 4
@@ -248,28 +248,28 @@ resource "vsphere_virtual_machine" "DUN-BS-LS-01" {
 
   clone {
     template_uuid = data.vsphere_virtual_machine.logstash.id
-    
+
     customize {
       linux_options {
         host_name = "DUN-BS-LS-01"
-        domain = var.domain_name
+        domain    = var.domain_name
       }
       network_interface {
         ipv4_address = "172.29.97.66"
         ipv4_netmask = 26
       }
-      ipv4_gateway = var.ipv4_logstash_gw
+      ipv4_gateway    = var.ipv4_logstash_gw
       dns_server_list = var.dns_servers
+    }
   }
-}
 }
 
 # KIBANA VMS
 resource "vsphere_virtual_machine" "DUN-BS-KIB-01" {
-  name             = "DUN-BS-KIB-01"
-  resource_pool_id = data.vsphere_resource_pool.pool.id
-  datastore_id     = data.vsphere_datastore.datastore02.id
-  wait_for_guest_ip_timeout = 0
+  name                       = "DUN-BS-KIB-01"
+  resource_pool_id           = data.vsphere_resource_pool.pool.id
+  datastore_id               = data.vsphere_datastore.datastore02.id
+  wait_for_guest_ip_timeout  = 0
   wait_for_guest_net_timeout = 0
 
   num_cpus = 4
@@ -287,18 +287,18 @@ resource "vsphere_virtual_machine" "DUN-BS-KIB-01" {
 
   clone {
     template_uuid = data.vsphere_virtual_machine.kibana.id
-    
+
     customize {
       linux_options {
         host_name = "DUN-BS-EL-KIB-01"
-        domain = var.domain_name
+        domain    = var.domain_name
       }
       network_interface {
         ipv4_address = "172.29.97.130"
         ipv4_netmask = 26
       }
-      ipv4_gateway = var.ipv4_kibana_gw
+      ipv4_gateway    = var.ipv4_kibana_gw
       dns_server_list = var.dns_servers
+    }
   }
- }
-} 
+}
