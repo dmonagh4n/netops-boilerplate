@@ -108,3 +108,4 @@ resource "vsphere_virtual_machine" "DUN-BS-CICD-01" {
   #    path         = "ISO/CentOS-8.1.1911-x86_64-dvd1.iso"
   # }
 }
+

@@ -37,3 +37,4 @@
 
     # Create a <server_name>_inventory.json file in the local directoy
     - local_action: copy content={{ inventory.results }} dest={{ inventory_hostname }}_inventory.json
+
